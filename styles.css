@@ -3,8 +3,9 @@
 }
 
 #car{
+    top: 0;
+    left: 0;
     width: 15%;
     height: 15%;
     position: absolute;
 }
-

@@ -1,35 +1,55 @@
 let block = document.getElementById("car"); // we also can use document.querySelector
 
-
 let left1 = 0; 
 let top1 = 0;
 
-document.addEventListener("keydown",  event => { // we also can use document.onclickdown(event)
-  if (event.code == "ArrowRight") { 
+
+document.addEventListener('click', (event) => {
+  const mousePosition = {
+      x: event.clientX,
+      y: event.clientY
+  };
+  block.style.left = `${mousePosition.x - block.offsetWidth/2}px`;
+  block.style.top = `${mousePosition.y - block.offsetHeight/2}px`;
+}, true)
+
+
+
+document.addEventListener("keydown", (event) => { 
+  const arrowRightFn = () => { 
     block.style.transform = "rotate(0deg)";
-    left1++;
     block.style.left = left1 + "px";
+    left1 = left1 + 14;
   }
-  if (event.code == "ArrowDown") {
-    block.style.transform = "rotate(90deg)";
-    top1++;
-    block.style.top = top1 + "px";
-  }
-  if(event.code == 'ArrowLeft') {
+
+  const arrowLeftFn = () => {
     block.style.transform = "rotate(180deg)";
-    left1--;
     block.style.left = left1 + 'px';
+    left1 = left1 - 14;
    }
-   if (event.code == "ArrowUp") {
-    block.style.transform = "rotate(270deg)";
-    top1--;
+
+   const arrowDownFn = () => {
+    block.style.transform = "rotate(90deg)";
     block.style.top = top1 + "px";
-  }
-});
+    top1 = top1 + 14;
+   }
 
-document.addEventListener("keydown", event => {
-  if (event.code == "Space") {
-    alert("beep-beep");
-  }
-});
+   const arrowUpFn = () => {
+    block.style.transform = "rotate(270deg)";
+    block.style.top = top1 + "px";
+    top1 = top1 - 14;
+   }
 
+   const spaceFn = () => alert("beep-beep");
+
+   const actions = {
+    ArrowRight: arrowRightFn,
+    ArrowDown: arrowDownFn,
+    ArrowLeft: arrowLeftFn, 
+    ArrowUp: arrowUpFn, 
+    Space: spaceFn
+
+   }
+
+   actions[event.code]();
+})
